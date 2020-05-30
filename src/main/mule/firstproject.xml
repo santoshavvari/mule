@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:json-logger="http://www.mulesoft.org/schema/mule/json-logger" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns:os="http://www.mulesoft.org/schema/mule/os"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/os http://www.mulesoft.org/schema/mule/os/current/mule-os.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/json-logger http://www.mulesoft.org/schema/mule/json-logger/current/mule-json-logger.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="431c8d96-e609-4a37-a30b-ca2cfd83d4ad" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<json-logger:config name="JSON_Logger_Config" doc:name="JSON Logger Config" doc:id="bf7876b9-e0a7-4025-b906-d4dab1629dab" applicationName="myapp" applicationVersion="4.0" environment="dev"/>
+	<flow name="firstprojectFlow" doc:id="b9b2f9b1-32d2-4300-9472-cea1453409d8" >
+		<http:listener doc:name="Listener" doc:id="0a67e980-871b-4fd1-8277-66527b73fd53" config-ref="HTTP_Listener_config" path="/apigwy"/>
+		<logger level="INFO" doc:name="Logger" doc:id="3311499d-d409-43f1-bd01-fe72d60641bc" message="Api gwy call"/>
+		<set-payload value="API Gwy call" doc:name="Set Payload" doc:id="d5af74d2-d750-4cda-bf4d-a25d1fe47434" />
+		<json-logger:logger doc:name="Logger" doc:id="cf5e8588-1222-4e8b-9dc8-b45071a7f975" config-ref="JSON_Logger_Config" message="myjson"/>
+	</flow>
+</mule>
